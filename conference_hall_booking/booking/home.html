@@ -1,0 +1,35 @@
+{% extends 'booking/base.html' %}
+
+{% block content %}
+
+<h1>Conference Hall Booking</h1>
+{% if user.is_authenticated %}
+<a href="{% url 'book' %}">Book Conference Hall</a>
+<table>
+    <thead>
+        <tr>
+            <th>Programme Title</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for booking in bookings %}
+        <tr>
+            <td>{{ booking.programme_title }}</td>
+            <td>{{ booking.start_date }}</td>
+            <td>{{ booking.end_date }}</td>
+            <td>{{ booking.status }}</td>
+            {% if booking.status == 'Pending' %}
+            <td><a href="{% url 'approve' booking.id %}">Approve</a></td>
+            <td><a href="{% url 'reject' booking.id %}">Reject</a></td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>Please <a href="{% url 'login' %}">log in</a> to book the conference hall.</p>
+{% endif %}
+{% endblock %}

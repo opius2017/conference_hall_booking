@@ -1,0 +1,12 @@
+{% extends 'booking/base.html' %}
+
+{% block content %}
+<h1>Reject Booking</h1>
+<form method="POST">
+    {% csrf_token %}
+    <label for="reason">Reason for rejection:</label>
+    <input type="text" name="reason" id="reason" required>
+    <button type="submit">Submit</button>
+
+</form>
+{% endblock %}
